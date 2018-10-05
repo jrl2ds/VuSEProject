@@ -96,3 +96,50 @@ F:  On the Yes Catalog page?
 M: Probably a central place that would tell me about the different course requirements I have, how many I’ve completed, and the courses in the upcoming semester that could contribute to them.
 
 A: An app-like calendar that had tabs for all the different options would be nice. 
+
+
+
+
+   # Requirements
+ 
+ The 
+ 
+   # Development Approach
+   
+## Overview
+The development approach shall start with the continued collection of user feedback on the potential features that could be implemented within the application. At no point does this feedback end, a process of continual engagement of customers and potential users can provide important information about the strategic direction of case submission. 
+
+
+This application is based on having sources of data, namely accurate information about major requirements, course offerings, course details, and potentially rate-my-professor information. Some of this data can be dynamically fetched when requested, some of this data may require the creation of a database that the application query.
+
+The process through which we will create the application shall proceed as follows:
+
+1. Collect user feedback on application requirements, and construct, based on the feedback, a general purpose set of 'features' that can be provided to the user. The current features are: Providing major requirements when requested. Providing minor requirements when requested. Providing a course-description when requested. Provide a list of times a class is offered, when requested. Provide teacher information when requested.
+
+2. The project is a text-based application. The first requirement of the application will be to offer a convenient text application. Generally speaking, the application should be able to receive text messages at a stable and consistent number, and respond with messages. Getting this core functionality working is the first step in the development process. This has two primary subparts:
+  A. Setting up server that can receive incoming messages
+  B. Setting up code on server to respond to incoming messages, cognizant of the content of the incoming messages.In general, the code will likely respond with a generic message that informs the user that the given command wasn't understood, and provides the knowledge that sending "help" will respond with a list of queries and their proper format. 
+
+3. The code will be based on a modular framework, where each "feature" is "handled" by a specific method. The current plan for this framework will be to build a primary parser, that accepts a given message, parses the input to understand what feature is being called upon, and then offloads the work onto a specific handler for the feature. By modularizing each feature, the code can be built sequentially, and improved. The initial framework that can parse a message based on it's input will be the first code desigend and implemented, and then each feature can be added to the code progressively, with more information being added to the parser, and a new handler method and related database being constructed. The first method to be constructed will likely be the "help" message, and an "unknown command" message that will respond with basic details on what the code does, and informs the user of the format for the help command. The help command will list all the available features and the input format. We will not automatically provide this info on every received unknown command, as the help message may become long when many features are added.
+
+It is intended that the intial process of designing and implementing the basic structure of the code should not take long. It is not overly complicated, and relies upon the bulk of the work being done in modular features. The first few features may also take longer to implement, however much of the code, structure and design of early features will be repeated in later features, allowing for drastic reduction in the time-cost of features added after the first. I estimate 1 hour maximum for the design of the framework, as well as roughly 30 minutes to 1 hour for the design and architecting phase of each feature. Each feature should reasonably have a 1-2 hour implementation viewpoint, including the database construction. In the case of unexpected technical difficulties in implementaiton and deployment, both of which are steps that require coding and operating with frameworks the developer may not be used to, added time must be added for obtaining the information neccesary to implement or deploy.   
+
+
+## Information Gathering, Empathy Surverys
+As discussed above, the first part of the process is implementing empathy surveys, to gain information from potential users about the problems they face, the solutions that could be provided, and the information that might be gleaned from the users. A great focus for empathy surverys include corner cases, identification of neccesary features, and what GUI or input format might be most useful for students. Interviewing professors, or incoming students may also provide greater feedback about what resources or features might be useful outside the initial intended scope.
+
+## Design and Architecting
+As noticed above, the intention is to build a relatively modular code base. The central content of the code is a parser that diverts incoming messages into a handler: The specified handler will be based on the content of the incoming messages. Various examples include: help, course-data, major-requirements, unknown commands. The parser ensures the information is of a format that the appropriate handler can utilize. 
+Each modular handler, and it's associated database must first be designed and architected. By establishing clear guidelines as for the input content of a message, and the expected output, the general design of the handler can be implemented. The database format can also be implemented, and constructed. Throughoughly designing the code before implementing allows for improved efficiency: designing the database may impose certain restrictions on the operation of the handler method, and so designing and architecting the entire feature before implementation will reduce the need to rewrite code as the plans for the flow of information change.
+
+## Implementation
+After building a thorough design, based on user feedback, the overall framework, and the individual modular features will be directly implemented. A handler method will be contructed, the parser will be modified so that the handler is called whenever an appropriate input is found. The handler is then implemented, based on the intended design, so that it can properly process the data and provide the information expected of it. The database will then be created so that the method can work as intended. The help message must also be updated so that the new feature is provided on the list of commands.
+
+## Testing
+After implementation of each feature, and before final product delivery, testing must occur. Thorhough testing is neccesary to ensure an appropriate product is delivered, and that operates as intended. Since this is a texting application, manual testing of the application will be the most useful tool, ensuring that the application can accept inputed data, parse it appropriately, pass it to the correct handler, and give back the information that is expected. If there are issues, implemntaton shall be redone to fix specific issues, and it may be possible that more empathy surveys and designing is neccesary to update the feature to a purpose more appropriate to users. It is critical this is done before deployment to ensure an operational product. 
+
+## Deployment
+The product will be deployed once the product meets customer specifications and works as intended. The product will be deployed via AWS. If updates are performed after a deployment build, those updates must meet an exceptionally high standard of testing before a redeployment, to ensure user functonality isn't reduced and only improved upon any redeployment of an updated. 
+
+## Maintence
+This step is critical for the continued success of the project. Advanced user feedback from the deployment build, as well as the possibility of deprecation of an external service or required changes to the specification, may result in the need for improvements, updates or changes made to the code. This can resolve issues that weren't identified in the testing stage, and it can allow for added and more advanced functionality to be added. New features may go through an enhanced version of the entire process: empathy surveys may be more impactful now that it's fine-tuned to simply what to add or change about an existing application, and this may allow the product to be altered to add better or new features. The code must adapt to changing requirements or features. 
